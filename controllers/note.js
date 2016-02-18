@@ -6,6 +6,22 @@ module.exports.newNote = (req, res) => {
   res.render('new-note');
 };
 
+module.exports.show = (req, res) => {
+  Note.findById(req.params.id, (err, note) => {
+    if (err) throw err;
+
+    res.render('display-note', {note: note});
+  })
+};
+
+module.exports.destroy = (req, res) => {
+    Note.findByIdAndRemove(req.params.id, (err) => {
+    if (err) throw err;
+
+    res.send('DESTROYED!!!');
+  })
+};
+
 module.exports.create = (req, res) => {
   Note.create(req.body, (err, note) => {
     if (err) throw err;
@@ -15,10 +31,3 @@ module.exports.create = (req, res) => {
   })
 };
 
-module.exports.show = (req, res) => {
-  Note.findById(req.params.id, (err, note) => {
-    if (err) throw err;
-
-    res.render('display-note', {note: note});
-  })
-};
