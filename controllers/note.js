@@ -2,40 +2,58 @@
 
 const Note = require('../models/note');
 
-module.exports.newNote = (req, res) => {
-  res.render('new-note');
-};
+module.exports = {
+  edit (req, res) {
+    Note.findById(req.params.id, (err, note) => {
+      if (err) throw err;
 
-module.exports.index = (req, res) => {
-  Note.find({}, (err, notes) => {
-    if (err) throw err;
+      res.render('new-note', {note: note});
+    });
+  },
 
-    res.render('notes-index', {notes: notes});
-  });
-}
+  update (req, res) {
+    Note.findByIdAndUpdate(req.params.id,
+      req.body, (err, note) => {
+        if (err) throw err;
 
-module.exports.show = (req, res) => {
-  Note.findById(req.params.id, (err, note) => {
-    if (err) throw err;
+        res.redirect(`/notes/${note._id}`);
+      }
+    );
+  },
 
-    res.render('display-note', {note: note});
-  })
-};
+  index (req, res) {
+    Note.find({}, (err, notes) => {
+      if (err) throw err;
 
-module.exports.destroy = (req, res) => {
+      res.render('notes-index', {notes: notes});
+    });
+  },
+
+  newNote (req, res) {
+    res.render('new-note');
+  },
+
+  show (req, res) {
+    Note.findById(req.params.id, (err, note) => {
+      if (err) throw err;
+
+      res.render('display-note', {note: note});
+    });
+  },
+
+  create (req, res) {
+    Note.create(req.body, (err, note) => {
+      if (err) throw err;
+
+      res.redirect(`/notes/${note._id}`);
+    });
+  },
+
+  destroy (req, res) {
     Note.findByIdAndRemove(req.params.id, (err) => {
-    if (err) throw err;
+      if (err) throw err;
 
-    res.redirect(`/notes`);
-  })
+      res.redirect('/notes');
+    });
+  }
 };
-
-module.exports.create = (req, res) => {
-  Note.create(req.body, (err, note) => {
-    if (err) throw err;
-
-    console.log(note);
-    res.redirect(`/notes/${note._id}`);
-  })
-};
-

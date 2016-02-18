@@ -11,6 +11,10 @@ router.get('/notes/:id', note.show);
 
 router.delete('/notes/:id', note.destroy);
 
+router.get('/notes/:id/edit', note.edit);
+
+router.put('/notes/:id', note.update);
+
 router.post('/notes', note.create);
 
 
