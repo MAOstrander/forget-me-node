@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
 const logger = require('./lib/logger');
-const routes = require('./routes/note');
+const routes = require('./routes/');
 
 const PORT = process.env.PORT || 3000; // eslint-disable-line no-magic-numbers
 

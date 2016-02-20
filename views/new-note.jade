@@ -14,6 +14,13 @@ form(method='POST', action='/notes#{over}')
     label(for='content') Note
     textarea#content(name='content', placeholder='Type your note here')= item.content
   .input-group
+    label(for='cat') Category
+    select#cat(name='category')
+      for cat in categories
+        // - var selected = cat._id === note.category._id
+
+        option(value=cat._id, selected=selected)= cat.name
+  .input-group
     input(type='submit', value='Save Note!')
 
 form(action='/notes')

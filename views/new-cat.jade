@@ -1,0 +1,12 @@
+form(method='POST', action='/cat')
+  .input-group
+    label(for='name')
+    input#name(type='text', name='name', placeholder='What is the new category?')
+  .input-group
+    label(for='description')
+    input#description(type='text', name='description', placeholder='How would you describe the category?')
+  .input-group
+    input(type='submit', value='Save Category!')
+
+form(action='/cat')
+ input(type='submit', value='Cancel')
